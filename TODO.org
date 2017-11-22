@@ -2,8 +2,10 @@
   CLOSED: [2017-11-22 Wed 11:02]
 * DONE Logging and logback
   CLOSED: [2017-11-22 Wed 11:02]
-* TODO Add support for native packager with docker
-* TODO Create a runnable image
+* DONE Add support for native packager with docker
+  CLOSED: [2017-11-22 Wed 14:59]
+* DONE Create a runnable image
+  CLOSED: [2017-11-22 Wed 14:59]
 * TODO Deploy to kubernetes
 * TODO Add redis support(memcache support?)
 * TODO Add MySql support
