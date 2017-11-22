@@ -1,12 +1,23 @@
 lazy val mjolnir = (project in file(".")).
   aggregate(`rest-api`)
 
-lazy val `rest-api` = (project in file("rest-api")).settings(
-  scalaVersion := "2.12.4",
-  libraryDependencies ++= Seq(
-    "com.github.finagle" %% "finch-core" % "0.16.0-M4",
-    "com.github.finagle" %% "finch-circe" % "0.16.0-M4",
-    "io.circe" %% "circe-generic" % "0.9.0-M2"
-  )
-)
+finchVersion in ThisBuild := "0.16.0-M4"
 
+lazy val `rest-api` = (project in file("rest-api")).
+  enablePlugins(ScalaProject).
+  settings(
+    Finch
+  )
+
+//TODO: Add cats to the dependencies
+//TODO: Create a simple ping - pong sort of api
+//TODO: Add integration tests
+//TODO: Add support for native packager with docker
+//TODO: Create a runnable image
+//TODO: Deploy to kubernetes
+//TODO: Add redis support
+//TODO: Add MySql support
+//TODO: Add Flyway migrations
+//TODO: Work on the ui portion of things
+//TODO: Add Oauth support
+//TODO: Create a readme

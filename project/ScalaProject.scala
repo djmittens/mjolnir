@@ -3,17 +3,10 @@ import sbt.Keys._
 
 object ScalaProject extends AutoPlugin {
 
-
-  object autoImport {
-  }
-
-  import autoImport._
-
-
   override def buildSettings: Seq[Def.Setting[_]] = Seq(
     scalaOrganization := "org.typelevel",
     scalaVersion := "2.12.3-bin-typelevel-4",
-      crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.4", "2.13.0-M2")
+    crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.4", "2.13.0-M2")
   )
 
   override def projectSettings: Seq[Def.Setting[_]] = Seq(
