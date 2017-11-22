@@ -4,8 +4,6 @@
   CLOSED: [2017-11-22 Wed 11:02]
 * TODO Add support for native packager with docker
 * TODO Create a runnable image
-** Another Something or something [/]
-   Man i get the feeling that the "org-mode" editor in intellij is a bunch of bullshit
 * TODO Deploy to kubernetes
 * TODO Add redis support(memcache support?)
 * TODO Add MySql support

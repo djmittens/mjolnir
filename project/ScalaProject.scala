@@ -5,7 +5,7 @@ object ScalaProject extends AutoPlugin {
 
   override def buildSettings: Seq[Def.Setting[_]] = Seq(
     scalaOrganization := "org.typelevel",
-    scalaVersion := "2.12.3-bin-typelevel-4",
+    scalaVersion := "2.12.4-bin-typelevel-4",
     crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.4", "2.13.0-M2")
   )
 
@@ -18,7 +18,8 @@ object ScalaProject extends AutoPlugin {
         "-Xstrict-patmat-analysis", // more accurate reporting of failures of match exhaustivity
         "-Xlint:strict-unsealed-patmat" // warn on inexhaustive matches against unsealed traits
       ),
-    // Test dependenciesk
+    fork in Runtime := true,
+    // Test dependencies
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test",
 
