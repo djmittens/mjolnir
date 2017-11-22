@@ -1,0 +1,16 @@
+* TODO Add twitter server
+* TODO Logging and logback
+* TODO Add integration tests
+* TODO Add support for native packager with docker
+* TODO Create a runnable image
+** Another Something or something [/]
+   Man i get the feeling that the "org-mode" editor in intellij is a bunch of bullshit
+* TODO Deploy to kubernetes
+* TODO Add redis support(memcache support?)
+* TODO Add MySql support
+* TODO Add Flyway migrations
+* TODO Work on the ui portion of things
+* TODO Add Oauth support
+* TODO Add metrics
+* TODO Add Ssl
+* TODO Create a readme
