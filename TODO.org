@@ -1,6 +1,7 @@
-* TODO Add twitter server
-* TODO Logging and logback
-* TODO Add integration tests
+* DONE Add twitter server
+  CLOSED: [2017-11-22 Wed 11:02]
+* DONE Logging and logback
+  CLOSED: [2017-11-22 Wed 11:02]
 * TODO Add support for native packager with docker
 * TODO Create a runnable image
 ** Another Something or something [/]
@@ -11,6 +12,8 @@
 * TODO Add Flyway migrations
 * TODO Work on the ui portion of things
 * TODO Add Oauth support
+* TODO Add integration tests
 * TODO Add metrics
+* TODO Add Splunk support
 * TODO Add Ssl
 * TODO Create a readme

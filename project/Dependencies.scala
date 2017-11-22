@@ -2,10 +2,16 @@ import sbt._
 import sbt.Keys._
 
 object Dependencies extends AutoPlugin {
-  object autoImport extends FinchDependencies with CatsDependencies {
-    val finchVersion = settingKey[String]("version for the http library")
-    val catsVersion = settingKey[String]("version of cats")
+
+  object autoImport
+    extends FinchDependencies
+      with CatsDependencies
+      with TwitterDependencies {
+    val finchVersion = settingKey[String]("version of the http library")
+    val catsVersion = settingKey[String]("version of fp programming library")
+    val twitterServerVersion = settingKey[String]("version of the server appliance")
   }
+
   import autoImport._
 
   trait FinchDependencies {
@@ -25,4 +31,10 @@ object Dependencies extends AutoPlugin {
       "org.typelevel" %% "cats-kernel" % catsVersion.value,
     )
   }
+
+  trait TwitterDependencies {
+    lazy val TwitterServer =
+      libraryDependencies += "com.twitter" %% "twitter-server" % twitterServerVersion.value
+  }
+
 }
