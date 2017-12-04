@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  db:
+    image: mysql
+    restart: always
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+
+  rest-api:
+    build: ./rest-api/target/docker/stage/
+    ports:
+      - 8080:8080
+      - 9990:9990
+    links:
+      - db
+
+volumes:
+  mysql:

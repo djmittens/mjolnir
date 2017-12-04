@@ -18,7 +18,8 @@ object ScalaProject extends AutoPlugin {
         "-Xstrict-patmat-analysis", // more accurate reporting of failures of match exhaustivity
         "-Xlint:strict-unsealed-patmat" // warn on inexhaustive matches against unsealed traits
       ),
-    fork in Runtime := true,
+    cancelable in Compile := true,
+    fork in Compile := true,
     // Test dependencies
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test",

@@ -6,7 +6,10 @@
   CLOSED: [2017-11-22 Wed 14:59]
 * DONE Create a runnable image
   CLOSED: [2017-11-22 Wed 14:59]
-* TODO Deploy to kubernetes
+* DONE Deploy to kubernetes
+  CLOSED: [2017-12-02 Sat 23:42]
+  So kubernetes is not lightweight enough to fit on a micro instance ( 500 mb, it seems to need that much just for the machinery)
+  Instead im going to go with a lighter - weight solution of docker-compose along with built in twitter stats for dashboards for now.
 * TODO Add redis support(memcache support?)
 * TODO Add MySql support
 * TODO Add Flyway migrations
