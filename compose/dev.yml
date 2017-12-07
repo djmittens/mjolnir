@@ -1,6 +1,40 @@
 version: "3"
 
 services:
+
+  nginx:
+    container_name: nginx_proxy
+    image: localhost:5000/nginx:v12
+    build: ./nginx
+    # volumes:
+    #   - ./nginx/volumes/ssl:/etc/nginx/ssl
+    ports:
+      - "80:8080"
+      - "443:443"
+    depends_on:
+      - rest-api
+    links:
+      - rest-api
+    networks:
+      - www
+    restart: always
+
+  rest-api:
+    build: ./rest-api/target/docker/stage/
+    image: localhost:5000/rest-api:0.1
+    ports:
+      # - 8080:8080
+      - 9990:9990
+    links:
+      - db
+
+    depends_on:
+      - db
+      # - redis
+    networks:
+      - www
+      - data
+
   db:
     image: mysql
     restart: always
@@ -15,13 +49,9 @@ services:
     ports:
       - 8081:8080
 
-  rest-api:
-    build: ./rest-api/target/docker/stage/
-    ports:
-      - 8080:8080
-      - 9990:9990
-    links:
-      - db
-
 volumes:
   mysql:
+
+networks:
+  data:
+  www:
