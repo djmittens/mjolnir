@@ -3,7 +3,7 @@ version: "3"
 services:
 
   nginx:
-    image: nginx:v12
+    image: djmittens/mjolnir:nginx
     build: ./nginx
     # volumes:
     #   - ./nginx/volumes/ssl:/etc/nginx/ssl
@@ -12,25 +12,19 @@ services:
       - "443:443"
     depends_on:
       - rest-api
-    networks:
-      - www
     restart: always
 
   rest-api:
-    build: ./rest-api/target/docker/stage/
-    image: rest-api:0.1
+    image: djmittens/mjolnir:rest-api-${VERSION:-latest}
     ports:
       # - 8080:8080
       - 9990:9990
     depends_on:
       - db
       # - redis
-    networks:
-      - www
-      - data
 
   db:
-    image: mysql:nick
+    image: mysql:8
     build: ./mysql
 
     restart: always

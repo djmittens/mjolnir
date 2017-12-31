@@ -1,2 +1,3 @@
 FROM mysql:8
-COPY custom.cnf /etc/mysql/conf.d/custom.cnf
+# this just makes this shit crash, so for now lets just not.
+#COPY custom.cnf /etc/mysql/conf.d/custom.cnf
