@@ -1,0 +1,75 @@
+# this line should be at the top of the file
+defaultEntryPoints = ["http", "https"]
+# Entrypoints, http and https
+[entryPoints]
+    # http should be redirected to https
+    [entryPoints.http]
+    address = ":80"
+
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+
+    # https is the default
+    [entryPoints.https]
+    address = ":443"
+        [entryPoints.https.tls]
+
+[acme]
+
+# Email address used for registration
+#
+# Required
+#
+email = "niksgamin@gmail.com"
+
+# File or key used for certificates storage.
+# WARNING, if you use Traefik in Docker, you have 2 options:
+#  - create a file on your host and mount it as a volume
+#      storageFile = "acme.json"
+#      $ docker run -v "/my/host/acme.json:acme.json" traefik
+#  - mount the folder containing the file as a volume
+#      storageFile = "/etc/traefik/acme/acme.json"
+#      $ docker run -v "/my/host/acme:/etc/traefik/acme" traefik
+#
+# Required
+#
+storage = "acme.json" # or "traefik/acme/account" if using KV store
+
+# Entrypoint to proxy acme challenge/apply certificates to.
+# WARNING, must point to an entrypoint on port 443
+#
+# Required
+#
+entryPoint = "https"
+
+# Enable certificate generation on frontends Host rules. This will request a certificate from Let's Encrypt for each frontend with a Host rule.
+# For example, a rule Host:test1.traefik.io,test2.traefik.io will request a certificate with main domain test1.traefik.io and SAN test2.traefik.io.
+#
+# Optional
+#
+OnHostRule = true
+
+
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+#
+endpoint = "unix:///var/run/docker.sock"
+
+# Default domain used.
+# Can be overridden by setting the "traefik.domain" label on a services.
+#
+# Required
+#
+domain = "docker.localhost"
+
+# Enable watch docker changes
+#
+watch = true
+
+# Ensure you enable swarm mode
+#
+swarmmode = true
+

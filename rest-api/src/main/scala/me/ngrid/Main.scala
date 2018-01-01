@@ -20,11 +20,11 @@ object Main extends TwitterServer {
 
   def main(): Unit = {
 
-    val time: Endpoint[Time] = post("time" :: jsonBody[Locale]) {l: Locale =>
+    val time: Endpoint[Time] = post("/time" :: jsonBody[Locale]) {l: Locale =>
       Ok(Time(l, currentTime(new util.Locale(l.language, l.country))))
     }
 
-    val server = Http.server.serve(":8080", time.toService)
+    val server = Http.server.serve(":8080", (time).toService)
     Await.ready(server)
     ()
   }
