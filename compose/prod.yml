@@ -55,8 +55,6 @@ services:
 
   db:
     image: mysql:8
-#    build: ./mysql
-    restart: always
     networks:
       - backend
     volumes:
