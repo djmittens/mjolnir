@@ -1,1 +1,79 @@
-compose/dev.yml
+version: "3.3"
+
+services:
+  traefik:
+    image: traefik:1.2
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: ingress # ingress makes it globally avialable over all swarm mode
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: ingress
+        # webui for traefik
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: ingress
+    volumes:
+      # mount the docker socket into the container, not required if you use a TCP socket
+      # note it's read only
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+    networks:
+      - public
+      - frontend
+
+    configs:
+      - source: traefik_config
+        target: /etc/traefik/traefik.toml
+        uid: '1'
+        gid: '1'
+        mode: 0700
+
+  rest-api:
+    image: djmittens/mjolnir:rest-api-${VERSION:-latest}
+    depends_on:
+      - db
+      # - redis
+    networks:
+      - frontend
+      - backend
+    deploy:
+      labels:
+        # set us up with traefik
+        - "traefik.enable=true"
+        - "traefik.backend=rest-api"
+        #which hosts to get ssl certificates for, and route traffic for.
+        - "traefik.frontend.rule=Host:mjolnir.ngrid.me"
+        # This needs to be the global network name(i think?)
+        - "traefik.docker.network=mjolnir_frontend"
+        #port this service is listening on.
+        - "traefik.port=8080"
+
+  db:
+    image: mysql:8
+    networks:
+      - backend
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+
+networks:
+  #containers with publically mapped ports
+  public:
+  #the frontend is for applications containers that are web facing.
+  frontend:
+  backend:
+
+volumes:
+  mysql:
+
+configs:
+  traefik_config:
+    file: ./traefik/config.toml
+

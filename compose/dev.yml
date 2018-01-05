@@ -1,41 +1,26 @@
 version: "3.3"
 
 services:
-
-  nginx:
-    image: djmittens/mjolnir:nginx
-    build: ./nginx
-    # volumes:
-    #   - ./nginx/volumes/ssl:/etc/nginx/ssl
-    ports:
-      - "80:8080"
-      - "443:443"
-    depends_on:
-      - rest-api
-    restart: always
-
-  rest-api:
-    image: djmittens/mjolnir:rest-api-${VERSION:-latest}
-    ports:
-      # - 8080:8080
-      - 9990:9990
-    depends_on:
-      - db
-      # - redis
-
-  db:
-    image: mysql:8
-    build: ./mysql
-
-    restart: always
+  traefik:
     volumes:
-      - mysql:/var/lib/mysql
+      - "./traefik/config.toml:/etc/traefik/traefik.toml:ro"
+  rest-api:
+    build: ./rest-api/target/docker/stage/
+    ports:
+      - 9990:9990
+
+    deploy:
+      labels:
+          - "traefik.frontend.rule=Host:localhost"
+  db:
+    ports:
+     - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
 
   adminer:
     image: adminer
-    restart: always
+
     ports:
       - 8081:8080
 
