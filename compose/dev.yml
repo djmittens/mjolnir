@@ -1,20 +1,27 @@
-version: "3.3"
+version: "3.4"
 
 services:
   traefik:
+#    command: --web --docker --docker.domain=mjolnir.dev --logLevel=DEBUG
+    ports:
+      - 80:80
+      - 8080:8080
     volumes:
-      - "./traefik/config.toml:/etc/traefik/traefik.toml:ro"
+      - "./traefik/config-dev.toml:/etc/traefik/traefik.toml:ro"
   rest-api:
     build: ./rest-api/target/docker/stage/
-    ports:
-      - 9990:9990
-
-    deploy:
-      labels:
-          - "traefik.frontend.rule=Host:localhost"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=rest-api"
+      #which hosts to get ssl certificates for, and route traffic for.
+      - "traefik.frontend.rule=Host:rest.mjolnir.dev"
+      # This needs to be the global network name(i think?)
+      - "traefik.docker.network=frontend"
+      #port this service is listening on.
+      - "traefik.port=8080"
+    depends_on:
+      - traefik
   db:
-    ports:
-     - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
 
@@ -23,7 +30,4 @@ services:
 
     ports:
       - 8081:8080
-
-volumes:
-  mysql:
 

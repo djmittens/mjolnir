@@ -1,0 +1,26 @@
+# this line should be at the top of the file
+defaultEntryPoints = ["http"]
+[entryPoints]
+    # http should be redirected to https
+    [entryPoints.http]
+    address = ":80"
+
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+#
+endpoint = "unix:///var/run/docker.sock"
+
+# Default domain used.
+# Can be overridden by setting the "traefik.domain" label on a services.
+#
+# Required
+#
+domain = "mjolnir.dev"
+
+# Enable watch docker changes
+#
+watch = true
+
