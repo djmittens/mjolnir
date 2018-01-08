@@ -16,7 +16,7 @@ services:
       #which hosts to get ssl certificates for, and route traffic for.
       - "traefik.frontend.rule=Host:rest.mjolnir.dev"
       # This needs to be the global network name(i think?)
-      - "traefik.docker.network=frontend"
+      - "traefik.docker.network=mjolnir_frontend"
       #port this service is listening on.
       - "traefik.port=8080"
     depends_on:

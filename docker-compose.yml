@@ -12,13 +12,6 @@ services:
       - public
       - frontend
 
-    configs:
-      - source: traefik_config
-        target: /etc/traefik/traefik.toml
-        uid: '1'
-        gid: '1'
-        mode: 0700
-
   rest-api:
     image: djmittens/mjolnir:rest-api-${VERSION:-latest}
     depends_on:
@@ -27,17 +20,6 @@ services:
     networks:
       - frontend
       - backend
-    deploy:
-      labels:
-        # set us up with traefik
-        - "traefik.enable=true"
-        - "traefik.backend=rest-api"
-        #which hosts to get ssl certificates for, and route traffic for.
-        - "traefik.frontend.rule=Host:mjolnir.ngrid.me"
-        # This needs to be the global network name(i think?)
-        - "traefik.docker.network=mjolnir_frontend"
-        #port this service is listening on.
-        - "traefik.port=8080"
 
   db:
     image: mysql:8
@@ -59,7 +41,4 @@ networks:
 volumes:
   mysql:
 
-configs:
-  traefik_config:
-    file: ./traefik/config.toml
 
