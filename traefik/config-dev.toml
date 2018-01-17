@@ -5,6 +5,10 @@ defaultEntryPoints = ["http"]
     [entryPoints.http]
     address = ":80"
 
+[web]
+# Web admin port
+address = ":8080"
+
 [docker]
 
 # Docker server endpoint. Can be a tcp or a unix socket endpoint.

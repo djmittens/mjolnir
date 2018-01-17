@@ -14,7 +14,7 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=rest-api"
       #which hosts to get ssl certificates for, and route traffic for.
-      - "traefik.frontend.rule=Host:rest.mjolnir.dev"
+      - "traefik.frontend.rule=Host:mjolnir.dev"
       # This needs to be the global network name(i think?)
       - "traefik.docker.network=mjolnir_frontend"
       #port this service is listening on.
