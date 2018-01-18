@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   traefik:
-    image: traefik:1.5-alpine
+    image: traefik:1.5.0-rc5-alpine
     volumes:
       # mount the docker socket into the container, not required if you use a TCP socket
       # note it's read only
@@ -38,5 +38,3 @@ networks:
 
 volumes:
   mysql:
-
-

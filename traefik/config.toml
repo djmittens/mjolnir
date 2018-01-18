@@ -1,74 +1,80 @@
 # this line should be at the top of the file
 defaultEntryPoints = ["http", "https"]
+logLevel = "INFO"
+
 # Entrypoints, http and https
 [entryPoints]
     # http should be redirected to https
     [entryPoints.http]
-    address = ":80"
+        address = ":80"
 
     [entryPoints.http.redirect]
-    entryPoint = "https"
+        entryPoint = "https"
 
     # https is the default
     [entryPoints.https]
-    address = ":443"
-        [entryPoints.https.tls]
+        address = ":443"
+            [entryPoints.https.tls]
 
 [acme]
-# Email address used for registration
-#
-# Required
-#
-email = "niksgamin@gmail.com"
+    # Email address used for registration
+    #
+    # Required
+    #
+    email = "niksgamin@gmail.com"
 
-# File or key used for certificates storage.
-# WARNING, if you use Traefik in Docker, you have 2 options:
-#  - create a file on your host and mount it as a volume
-#      storageFile = "acme.json"
-#      $ docker run -v "/my/host/acme.json:acme.json" traefik
-#  - mount the folder containing the file as a volume
-#      storageFile = "/etc/traefik/acme/acme.json"
-#      $ docker run -v "/my/host/acme:/etc/traefik/acme" traefik
-#
-# Required
-#
-storage = "acme.json" # or "traefik/acme/account" if using KV store
+    # File or key used for certificates storage.
+    # WARNING, if you use Traefik in Docker, you have 2 options:
+    #  - create a file on your host and mount it as a volume
+    #      storageFile = "acme.json"
+    #      $ docker run -v "/my/host/acme.json:acme.json" traefik
+    #  - mount the folder containing the file as a volume
+    #      storageFile = "/etc/traefik/acme/acme.json"
+    #      $ docker run -v "/my/host/acme:/etc/traefik/acme" traefik
+    #
+    # Required
+    #
+    storage = "/etc/traefik/acme/acme.json" # or "traefik/acme/account" if using KV store
+    acmeLogging = true
 
-# Entrypoint to proxy acme challenge/apply certificates to.
-# WARNING, must point to an entrypoint on port 443
-#
-# Required
-#
-entryPoint = "https"
+    # Entrypoint to proxy acme challenge/apply certificates to.
+    # WARNING, must point to an entrypoint on port 443
+    #
+    # Required
+    #
+    entryPoint = "https"
+    [acme.httpChallenge]
+        entryPoint = "http"
 
-# Enable certificate generation on frontends Host rules. This will request a certificate from Let's Encrypt for each frontend with a Host rule.
-# For example, a rule Host:test1.traefik.io,test2.traefik.io will request a certificate with main domain test1.traefik.io and SAN test2.traefik.io.
-#
-# Optional
-#
-onHostRule = true
+
+    # Enable certificate generation on frontends Host rules. This will request a certificate from Let's Encrypt for each frontend with a Host rule.
+    # For example, a rule Host:test1.traefik.io,test2.traefik.io will request a certificate with main domain test1.traefik.io and SAN test2.traefik.io.
+    #
+    # Optional
+    #
+    onHostRule = true
 
 
 [docker]
 
-# Docker server endpoint. Can be a tcp or a unix socket endpoint.
-#
-# Required
-#
-endpoint = "unix:///var/run/docker.sock"
+    # Docker server endpoint. Can be a tcp or a unix socket endpoint.
+    #
+    # Required
+    #
+    endpoint = "unix:///var/run/docker.sock"
 
-# Default domain used.
-# Can be overridden by setting the "traefik.domain" label on a services.
-#
-# Required
-#
-domain = "docker.localhost"
+    # Default domain used.
+    # Can be overridden by setting the "traefik.domain" label on a services.
+    #
+    # Required
+    #
+    domain = "mjolnir.ngrid.me"
 
-# Enable watch docker changes
-#
-watch = true
+    # Enable watch docker changes
+    #
+    watch = true
 
-# Ensure you enable swarm mode
-#
-swarmmode = true
+    # Ensure you enable swarm mode
+    #
+    swarmmode = true
 

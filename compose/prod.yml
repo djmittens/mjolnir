@@ -11,14 +11,15 @@ services:
         published: 443
         protocol: tcp
         mode: ingress
+      - "5002:80"
     configs:
-      - source: traefik_config
+      - source: traefik_config.v3
         target: /etc/traefik/traefik.toml
         uid: '1'
         gid: '1'
         mode: 0700
     volumes:
-      - traefik:/etc/traefik/.json
+      - traefik:/etc/traefik/acme
 
   rest-api:
     deploy:
@@ -39,7 +40,7 @@ services:
       - mysql_root_pass
 
 configs:
-  traefik_config:
+  traefik_config.v3:
     file: ./traefik/config.toml
 
 secrets:
