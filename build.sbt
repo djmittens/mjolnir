@@ -29,7 +29,7 @@ lazy val `rest-api` = (project in file("rest-api")).
       username = dockerUsername.value,
       name = "mjolnir",
       tag = Some(
-        name.value + "-" + version.value
+        name.value
       )
     ),
     dockerExposedPorts := Seq(8080, 9990),

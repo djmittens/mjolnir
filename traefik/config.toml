@@ -15,7 +15,6 @@ defaultEntryPoints = ["http", "https"]
         [entryPoints.https.tls]
 
 [acme]
-
 # Email address used for registration
 #
 # Required
@@ -47,7 +46,7 @@ entryPoint = "https"
 #
 # Optional
 #
-OnHostRule = true
+onHostRule = true
 
 
 [docker]

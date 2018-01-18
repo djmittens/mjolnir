@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   traefik:
-    image: traefik:1.2
+    image: traefik:1.5-alpine
     volumes:
       # mount the docker socket into the container, not required if you use a TCP socket
       # note it's read only
@@ -13,7 +13,7 @@ services:
       - frontend
 
   rest-api:
-    image: djmittens/mjolnir:rest-api-${VERSION:-latest}
+    image: djmittens/mjolnir:rest-api
     depends_on:
       - db
       # - redis
@@ -27,8 +27,6 @@ services:
       - backend
     volumes:
       - mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
 
 
 networks:

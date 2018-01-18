@@ -17,6 +17,8 @@ services:
         uid: '1'
         gid: '1'
         mode: 0700
+    volumes:
+      - traefik:/etc/traefik/.json
 
   rest-api:
     deploy:
@@ -30,8 +32,19 @@ services:
         - "traefik.docker.network=mjolnir_frontend"
         #port this service is listening on.
         - "traefik.port=8080"
-
+  db:
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_pass
+    secrets:
+      - mysql_root_pass
 
 configs:
   traefik_config:
     file: ./traefik/config.toml
+
+secrets:
+  mysql_root_pass:
+    external: true
+
+volumes:
+  traefik:
